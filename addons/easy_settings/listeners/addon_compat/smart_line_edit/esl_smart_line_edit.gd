@@ -1,5 +1,6 @@
 @tool
 extends ESL
+class_name ESLSmartLineEdit
 
 
 ## Automatically binds itself with the SmartLineEdit given in [member smart_line_edit]
