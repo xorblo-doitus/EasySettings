@@ -2,18 +2,23 @@ extends Object
 class_name EasySettings
 
 
-static var all_listeners: Dictionary = {}
+static var all_listeners: Dictionary:
+	get:
+		if all_listeners == null:
+			all_listeners = {}
+		return all_listeners
 
 
 ## Does [method ProjectSettings.set_setting] then update listeners bound to this setting.
 static func set_setting(setting: String, value) -> void:
+	var old_value = ProjectSettings.get_setting(setting)
 	ProjectSettings.set_setting(setting, value)
 	ProjectSettings.save_custom("override.cfg")
 	
 	var listeners: Array[ESL] = all_listeners.get(setting, _get_empty_ESL_array())
 	for listener in listeners:
 		if is_instance_valid(listener):
-			listener._update_value(value)
+			listener._update_value(value, old_value)
 		else:
 			# Defered because would modify the Array during iteration otherwise.
 			unbind_listener.call_deferred(setting, listener)
