@@ -1,4 +1,5 @@
 @static_unload
+@icon("ESL_Icon.svg")
 extends Node
 class_name ESL
 
