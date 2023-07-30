@@ -4,7 +4,8 @@ class_name EasySettings
 
 static var all_listeners: Dictionary:
 	get:
-		if all_listeners == null:
+		# `all_listeners == null` somehow don't work...
+		if typeof(all_listeners) == TYPE_NIL:
 			all_listeners = {}
 		return all_listeners
 
