@@ -1,4 +1,3 @@
-@tool
 extends ESL
 class_name ESLSmartLineEdit
 
