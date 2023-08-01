@@ -25,14 +25,16 @@ class_name ESLLineEdit
 		if new_value != null:
 			_connect(new_value)
 		line_edit = new_value
+		if start_synced:
+			force_update()
 
 
 func get_value():
 	return line_edit.text
 
 
-func update_value(new_value, old_value) -> void:
-	if sync == Sync.ALWAYS or line_edit.text == str(old_value):
+func update_value(new_value, old_value, forced: bool = false) -> void:
+	if sync == Sync.ALWAYS or line_edit.text == str(old_value) or forced:
 		line_edit.text = str(new_value)
 
 

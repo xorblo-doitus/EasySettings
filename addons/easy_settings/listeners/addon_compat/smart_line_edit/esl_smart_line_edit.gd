@@ -25,14 +25,16 @@ class_name ESLSmartLineEdit
 		if new_value != null:
 			_connect(new_value)
 		smart_line_edit = new_value
+		if start_synced:
+			force_update()
 
 
 func get_value():
 	return smart_line_edit.get_value()
 
 
-func update_value(new_value, old_value) -> void:
-	if sync == Sync.ALWAYS or smart_line_edit.last_valid_text == str(old_value):
+func update_value(new_value, old_value, forced: bool = false) -> void:
+	if sync == Sync.ALWAYS or smart_line_edit.last_valid_text == str(old_value) or forced:
 		smart_line_edit.set_valid_text_without_update(str(new_value))
 
 

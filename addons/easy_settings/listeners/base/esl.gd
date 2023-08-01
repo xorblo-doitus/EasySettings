@@ -33,6 +33,14 @@ static var _no_value: RefCounted = RefCounted.new()
 			EasySettings.bind_listener(new_setting, self)
 		setting = new_setting
 @export var sync: Sync = Sync.WHEN_WAS_SYNCED
+## If true, when ready or target changed, the value will be synced.
+@export var start_synced: bool = true
+
+
+func _ready() -> void:
+	if start_synced:
+		force_update()
+
 
 ## [b][Virtual][/b] Method called to get the value. It should return the right type of value.
 func get_value():
@@ -41,7 +49,7 @@ func get_value():
 
 ## [b][Virtual][/b] Method called when the setting is modified by an external source,
 ## except if [member sync] is [enum Sync].NEVER.
-func update_value(new_value, old_value) -> void:
+func update_value(new_value, old_value, forced: bool = false) -> void:
 	pass
 
 
@@ -52,6 +60,11 @@ func set_value(new_value = _no_value) -> void:
 	_ignore_update = true
 	EasySettings.set_setting(setting, get_value() if _is_no_value(new_value) else new_value)
 	_ignore_update = false
+
+
+## Fetch the setting value and update the bound object.
+func force_update() -> void:
+	update_value(ProjectSettings.get(setting), _no_value, true)
 
 
 ## Workaround for `==` raising an error instead of returning false when
