@@ -42,9 +42,7 @@ func _connect(to_connect: LineEdit) -> void:
 	if set_only_on_submit:
 		to_connect.text_submitted.connect(set_value)
 	else:
-		to_connect.text_changed.connect(
-			set_value.unbind(1) # Discard `old_value`
-		)
+		to_connect.text_changed.connect(set_value)
 
 
 func _disconnect(to_disconnect: LineEdit) -> void:
