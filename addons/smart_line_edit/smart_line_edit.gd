@@ -8,7 +8,7 @@ class_name SmartLineEdit
 signal valid_text_changed(new_text: String, old_text: String)
 signal value_changed(new_value, old_value)
 signal status_changed(new_status: Status, old_status: Status)
-signal submited(value)
+signal submitted(value)
 
 enum Types {
 	DIRECTORY, ## Must be a path to a directory. It will be made canonical on submit.
@@ -434,9 +434,9 @@ func submit() -> void:
 			accept_corrected()
 		Status.CORRECTED:
 			accept_corrected()
-			submited.emit(eval(last_valid_text))
+			submitted.emit(eval(last_valid_text))
 		Status.OK:
-			submited.emit(eval(last_valid_text))
+			submitted.emit(eval(last_valid_text))
 
 
 ## Create regexes matching the same strings as [member file_patterns]

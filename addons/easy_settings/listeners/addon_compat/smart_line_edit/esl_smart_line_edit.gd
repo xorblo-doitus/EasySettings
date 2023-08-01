@@ -36,11 +36,9 @@ func update_value(new_value, old_value) -> void:
 		smart_line_edit.set_valid_text_without_update(str(new_value))
 
 
-
 func _connect(to_connect: SmartLineEdit) -> void:
-	print(set_only_on_submit)
 	if set_only_on_submit:
-		to_connect.submited.connect(set_value)
+		to_connect.submitted.connect(set_value)
 	else:
 		to_connect.value_changed.connect(
 			set_value.unbind(1) # Discard `old_value`
@@ -51,8 +49,8 @@ func _disconnect(to_disconnect: SmartLineEdit) -> void:
 	if to_disconnect.value_changed.is_connected(set_value):
 		to_disconnect.value_changed.disconnect(set_value)
 	
-	if to_disconnect.submited.is_connected(set_value):
-		to_disconnect.submited.disconnect(set_value)
+	if to_disconnect.submitted.is_connected(set_value):
+		to_disconnect.submitted.disconnect(set_value)
 
 
 
