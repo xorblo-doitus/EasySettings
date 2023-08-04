@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3wr0242ek4a2"]
+
+[ext_resource type="PackedScene" uid="uid://dxlqu4dnw63c1" path="res://test/manual/manual_test_scene.tscn" id="1_8nkkm"]
+[ext_resource type="PackedScene" uid="uid://b2633w43w41yc" path="res://addons/easy_settings/listeners/base/line_edit/esl_line_edit.tscn" id="2_k6w86"]
+
+[node name="ManualTestScene" instance=ExtResource("1_8nkkm")]
+setting = "testing/fake_setting/line_edit"
+
+[node name="ESLPrinter" parent="." index="0"]
+prefix = null
+setting = "testing/fake_setting/line_edit"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="ESLLineEdit" parent="VBoxContainer/LineEdit" index="0" node_paths=PackedStringArray("line_edit") instance=ExtResource("2_k6w86")]
+line_edit = NodePath("..")
+setting = "testing/fake_setting/line_edit"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="ESLLineEdit" parent="VBoxContainer/LineEdit2" index="0" node_paths=PackedStringArray("line_edit") instance=ExtResource("2_k6w86")]
+line_edit = NodePath("..")
+setting = "testing/fake_setting/line_edit"

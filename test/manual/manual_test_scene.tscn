@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxlqu4dnw63c1"]
+
+[ext_resource type="Script" path="res://test/manual/manual_test_scene.gd" id="1_eb3jn"]
+[ext_resource type="PackedScene" uid="uid://n5f5galx60ji" path="res://addons/easy_settings/listeners/base/debugging/esl_printer.tscn" id="2_j608y"]
+
+[node name="ManualTestScene" type="Node"]
+script = ExtResource("1_eb3jn")
+setting = "testing/fake_setting/none"
+
+[node name="ESLPrinter" parent="." instance=ExtResource("2_j608y")]
+prefix = null
+setting = "testing/fake_setting/none"

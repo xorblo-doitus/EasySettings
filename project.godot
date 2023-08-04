@@ -24,3 +24,4 @@ renderer/rendering_method.mobile="gl_compatibility"
 
 fake_setting/line_edit="default"
 fake_setting/smart_line_edit=1234
+fake_setting/none=true
