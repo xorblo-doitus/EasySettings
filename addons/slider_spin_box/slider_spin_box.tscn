@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://sirvxgnt3chi"]
+
+[ext_resource type="Script" path="res://addons/slider_spin_box/slider_spin_box.gd" id="1_bfx7b"]
+
+[node name="SliderSpinBox" type="VBoxContainer"]
+offset_right = 172.0
+offset_bottom = 51.0
+script = ExtResource("1_bfx7b")
+
+[node name="SpinBox" type="SpinBox" parent="."]
+z_index = -1
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../Slider")
+focus_next = NodePath("../Slider")
+
+[node name="Slider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+focus_neighbor_top = NodePath("../SpinBox")
+focus_previous = NodePath("../SpinBox")
+
+[connection signal="value_changed" from="SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="Slider" to="." method="_on_slider_value_changed"]

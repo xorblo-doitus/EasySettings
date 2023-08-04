@@ -11,3 +11,5 @@
 /addons/gut/**              export-ignore
 /addons/smart_line_edit     export-ignore
 /addons/smart_line_edit/**  export-ignore
+/addons/slider_spin_box     export-ignore
+/addons/slider_spin_box/**  export-ignore
