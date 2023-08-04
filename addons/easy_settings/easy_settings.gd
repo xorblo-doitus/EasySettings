@@ -25,6 +25,11 @@ static func set_setting(setting: String, value) -> void:
 			unbind_listener.call_deferred(setting, listener)
 
 
+## Alias for [method ProjectSettings.get_setting]
+static func get_setting(setting: String, default: Variant = null) -> Variant:
+	return ProjectSettings.get_setting(setting, default)
+
+
 ## Bind a listener so he will be updated when setting's value is changed.
 static func bind_listener(setting: String, listener: ESL) -> void:
 	var listeners: Array[ESL] = all_listeners.get(setting, _get_empty_ESL_array())
