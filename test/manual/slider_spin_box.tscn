@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://rsu00x2ntgh8"]
+
+[ext_resource type="PackedScene" uid="uid://dxlqu4dnw63c1" path="res://test/manual/manual_test_scene.tscn" id="1_skox7"]
+[ext_resource type="PackedScene" uid="uid://sirvxgnt3chi" path="res://addons/slider_spin_box/slider_spin_box.tscn" id="2_8v6cp"]
+[ext_resource type="PackedScene" uid="uid://cukv8au8l4xnm" path="res://addons/easy_settings/listeners/addon_compat/slider_spin_box/esl_slider_spin_box.tscn" id="3_8yvum"]
+
+[node name="ManualTestScene" instance=ExtResource("1_skox7")]
+setting = "testing/fake_setting/slider_spin_box"
+
+[node name="ESLPrinter" parent="." index="0"]
+prefix = "Changed setting "
+setting = "testing/fake_setting/slider_spin_box"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SliderSpinBox" parent="VBoxContainer" index="0" instance=ExtResource("2_8v6cp")]
+layout_mode = 2
+
+[node name="ESLSliderSpinBox" parent="VBoxContainer/SliderSpinBox" index="2" node_paths=PackedStringArray("slider_spin_box") instance=ExtResource("3_8yvum")]
+slider_spin_box = NodePath("..")
+setting = "testing/fake_setting/slider_spin_box"
+
+[node name="SliderSpinBox2" parent="VBoxContainer" index="1" instance=ExtResource("2_8v6cp")]
+layout_mode = 2
+
+[node name="ESLSliderSpinBox" parent="VBoxContainer/SliderSpinBox2" index="2" node_paths=PackedStringArray("slider_spin_box") instance=ExtResource("3_8yvum")]
+slider_spin_box = NodePath("..")
+setting = "testing/fake_setting/slider_spin_box"
