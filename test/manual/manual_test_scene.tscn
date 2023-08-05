@@ -8,5 +8,4 @@ script = ExtResource("1_eb3jn")
 setting = "testing/fake_setting/none"
 
 [node name="ESLPrinter" parent="." instance=ExtResource("2_j608y")]
-prefix = null
 setting = "testing/fake_setting/none"
