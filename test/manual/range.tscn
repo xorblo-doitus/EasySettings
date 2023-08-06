@@ -20,8 +20,6 @@ layout_mode = 2
 [node name="ESLRange" parent="VBoxContainer/HSlider" index="0" node_paths=PackedStringArray("range") instance=ExtResource("2_wte7j")]
 range = NodePath("..")
 setting = "testing/fake_setting/range"
-sync = null
-start_synced = null
 
 [node name="HSlider2" type="HSlider" parent="VBoxContainer" index="1"]
 layout_mode = 2
@@ -29,5 +27,3 @@ layout_mode = 2
 [node name="ESLRange" parent="VBoxContainer/HSlider2" index="0" node_paths=PackedStringArray("range") instance=ExtResource("2_wte7j")]
 range = NodePath("..")
 setting = "testing/fake_setting/range"
-sync = null
-start_synced = null

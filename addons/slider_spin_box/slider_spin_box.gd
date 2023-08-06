@@ -25,12 +25,13 @@ signal value_changed(value: float)
 func _ready() -> void:
 	if _property_list.is_empty():
 		_get_property_list()
+	
+	slider.share(spin_box)
 
 
 func _set(property: StringName, value: Variant) -> bool:
 	if property in _bound_properties:
 		slider.set(property, value)
-		spin_box.set(property, value)
 		return true
 	return false
 
@@ -66,10 +67,9 @@ func _get_property_list() -> Array[Dictionary]:
 	return _property_list
 
 
-func _on_spin_box_value_changed(new_value: float) -> void:
-	slider.value = new_value
+func set_value_no_signal(value: float) -> void:
+	slider.set_value_no_signal(value)
 
 
 func _on_slider_value_changed(value: float) -> void:
-	spin_box.value = value
 	value_changed.emit(value)

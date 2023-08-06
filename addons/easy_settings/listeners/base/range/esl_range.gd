@@ -33,7 +33,7 @@ func update_value(new_value: float, old_value, forced: bool = false) -> void:
 			or (_is_no_value(old_value) or range.value == old_value)
 			or forced
 		) and range != null:
-		range.value = new_value
+		range.set_value_no_signal(new_value)
 
 
 func _connect(to_connect: Range) -> void:

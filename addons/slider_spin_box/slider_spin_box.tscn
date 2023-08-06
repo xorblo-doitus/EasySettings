@@ -20,5 +20,4 @@ size_flags_vertical = 1
 focus_neighbor_top = NodePath("../SpinBox")
 focus_previous = NodePath("../SpinBox")
 
-[connection signal="value_changed" from="SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="value_changed" from="Slider" to="." method="_on_slider_value_changed"]

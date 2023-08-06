@@ -33,7 +33,7 @@ func update_value(new_value: float, old_value: Variant, forced: bool = false) ->
 			or (_is_no_value(old_value) or slider_spin_box.value == old_value)
 			or forced
 		):
-		slider_spin_box.value = new_value
+		slider_spin_box.set_value_no_signal(new_value)
 
 
 func _connect(to_connect: SliderSpinBox) -> void:
