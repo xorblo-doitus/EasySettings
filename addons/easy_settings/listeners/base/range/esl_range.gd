@@ -22,11 +22,17 @@ class_name ESLRange
 
 
 func get_value() -> float:
+	if range == null:
+		return 0
 	return range.value
 
 
-func update_value(new_value, old_value, forced: bool = false) -> void:
-	if sync == Sync.ALWAYS or (_is_no_value(old_value) or range.value == old_value) or forced:
+func update_value(new_value: float, old_value, forced: bool = false) -> void:
+	if (
+			sync == Sync.ALWAYS
+			or (_is_no_value(old_value) or range.value == old_value)
+			or forced
+		) and range != null:
 		range.value = new_value
 
 

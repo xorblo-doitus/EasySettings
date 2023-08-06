@@ -29,11 +29,11 @@ class_name ESLLineEdit
 			force_update()
 
 
-func get_value():
+func get_value() -> String:
 	return line_edit.text
 
 
-func update_value(new_value, old_value, forced: bool = false) -> void:
+func update_value(new_value: Variant, old_value: Variant, forced: bool = false) -> void:
 	if sync == Sync.ALWAYS or line_edit.text == str(old_value) or forced:
 		line_edit.text = str(new_value)
 

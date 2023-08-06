@@ -17,14 +17,22 @@ class_name ESLSliderSpinBox
 			force_update()
 
 
-func get_value():
+func get_value() -> float:
+	if slider_spin_box == null:
+		return 0
 	return slider_spin_box.value
 
 
-func update_value(new_value, old_value, forced: bool = false) -> void:
+func update_value(new_value: float, old_value: Variant, forced: bool = false) -> void:
+	if slider_spin_box == null:
+		return
 	while not slider_spin_box.is_node_ready():
 		await get_tree().process_frame
-	if sync == Sync.ALWAYS or (_is_no_value(old_value) or slider_spin_box.value == old_value) or forced:
+	if (
+			sync == Sync.ALWAYS
+			or (_is_no_value(old_value) or slider_spin_box.value == old_value)
+			or forced
+		):
 		slider_spin_box.value = new_value
 
 

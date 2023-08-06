@@ -1,4 +1,3 @@
-@static_unload
 @icon("ESL_Icon.svg")
 extends Node
 class_name ESL
@@ -44,19 +43,19 @@ func _ready() -> void:
 
 ## [b][Virtual][/b] Method called to get the value. It should return the right type of value.
 func get_value():
-	pass
+	return null
 
 
 ## [b][Virtual][/b] Method called when the setting is modified by an external source,
 ## except if [member sync] is [enum Sync].NEVER.
-func update_value(new_value, old_value, forced: bool = false) -> void:
+func update_value(new_value, old_value: Variant, forced: bool = false) -> void:
 	pass
 
 
 ## Method to call when value is changed. If connected to a signal with more
 ## than 1 value emitted, remember to discard them.
 ## [br]If no [param new_value] is passed, it uses [method get_value] to find it.
-func set_value(new_value = _no_value) -> void:
+func set_value(new_value: Variant = _no_value) -> void:
 	_ignore_update = true
 	EasySettings.set_setting(setting, get_value() if _is_no_value(new_value) else new_value)
 	_ignore_update = false
@@ -64,17 +63,17 @@ func set_value(new_value = _no_value) -> void:
 
 ## Fetch the setting value and update the bound object.
 func force_update() -> void:
-	update_value(ProjectSettings.get(setting), _no_value, true)
+	update_value(EasySettings.get_setting(setting), _no_value, true)
 
 
 ## Workaround for `==` raising an error instead of returning false when
 ## Comparing two things that it don't know how to compare
-func _is_no_value(to_test) -> bool:
+func _is_no_value(to_test: Variant) -> bool:
 	return typeof(to_test) == TYPE_OBJECT and to_test == _no_value
 
 
 var _ignore_update: bool = false
-func _update_value(new_value, old_value) -> void:
+func _update_value(new_value, old_value: Variant) -> void:
 	if _ignore_update or sync == Sync.NEVER:
 		return
 	update_value(new_value, old_value)

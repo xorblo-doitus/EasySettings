@@ -16,13 +16,20 @@ class_name ESLPrinter
 @export var prefix: String = "Changed setting "
 
 
-func get_value():
+func _ready() -> void:
+	## When in editor, static variable is not initialized for some reason
+	if _no_value == null:
+		_no_value = RefCounted.new()
+	super()
+
+
+func get_value() -> Variant:
 	return EasySettings.get_value(setting)
 
 
 ## [b][Virtual][/b] Method called when the setting is modified by an external source,
 ## except if [member sync] is [enum Sync].NEVER.
-func update_value(new_value, old_value, forced: bool = false) -> void:
+func update_value(new_value: Variant, old_value: Variant, forced: bool = false) -> void:
 	if _is_no_value(old_value):
 		print("Initial setting ", setting, ": ", new_value)
 	else:

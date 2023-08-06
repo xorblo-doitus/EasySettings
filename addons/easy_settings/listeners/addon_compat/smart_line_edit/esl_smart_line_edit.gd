@@ -29,14 +29,22 @@ class_name ESLSmartLineEdit
 			force_update()
 
 
-func get_value():
+func get_value() -> Variant:
+	if smart_line_edit == null:
+		return
 	return smart_line_edit.get_value()
 
 
-func update_value(new_value, old_value, forced: bool = false) -> void:
+func update_value(new_value: Variant, old_value: Variant, forced: bool = false) -> void:
+	if smart_line_edit == null:
+		return
 	while not smart_line_edit.is_node_ready():
 		await get_tree().process_frame
-	if sync == Sync.ALWAYS or smart_line_edit.last_valid_text == str(old_value) or forced:
+	if (
+			sync == Sync.ALWAYS
+			or smart_line_edit.last_valid_text == str(old_value)
+			or forced
+		):
 		smart_line_edit.set_valid_text_without_update(str(new_value))
 
 
