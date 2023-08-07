@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyjf5fb8alcwn"]
+
+[ext_resource type="PackedScene" uid="uid://dxlqu4dnw63c1" path="res://test/manual/manual_test_scene.tscn" id="1_erpwu"]
+[ext_resource type="PackedScene" uid="uid://c4g6uon00f8jt" path="res://addons/easy_settings/listeners/base/base_button/esl_base_button.tscn" id="2_ahrw6"]
+
+[node name="ManualTestScene" instance=ExtResource("1_erpwu")]
+setting = "testing/fake_setting/base_button"
+
+[node name="ESLPrinter" parent="." index="0"]
+prefix = "Changed setting "
+setting = "testing/fake_setting/base_button"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="ESLBaseButton" parent="VBoxContainer/CheckBox" index="0" node_paths=PackedStringArray("base_button") instance=ExtResource("2_ahrw6")]
+base_button = NodePath("..")
+setting = "testing/fake_setting/base_button"
+
+[node name="CheckBox2" type="CheckBox" parent="VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="ESLBaseButton" parent="VBoxContainer/CheckBox2" index="0" node_paths=PackedStringArray("base_button") instance=ExtResource("2_ahrw6")]
+base_button = NodePath("..")
+setting = "testing/fake_setting/base_button"
