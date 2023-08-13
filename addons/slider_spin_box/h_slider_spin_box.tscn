@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://addons/slider_spin_box/slider_spin_box.gd" id="1_bfx7b"]
 
-[node name="SliderSpinBox" type="VBoxContainer"]
+[node name="HSliderSpinBox" type="VBoxContainer"]
 offset_right = 172.0
 offset_bottom = 51.0
 script = ExtResource("1_bfx7b")
 
 [node name="SpinBox" type="SpinBox" parent="."]
+unique_name_in_owner = true
 z_index = -1
 layout_mode = 2
 size_flags_vertical = 3
@@ -15,6 +16,7 @@ focus_neighbor_bottom = NodePath("../Slider")
 focus_next = NodePath("../Slider")
 
 [node name="Slider" type="HSlider" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 focus_neighbor_top = NodePath("../SpinBox")

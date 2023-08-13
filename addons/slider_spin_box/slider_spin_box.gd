@@ -1,5 +1,6 @@
 @tool
-extends VBoxContainer
+@icon("icon.svg")
+extends BoxContainer
 class_name SliderSpinBox
 
 
@@ -16,10 +17,18 @@ signal value_changed(value: float)
 ## (wich inherit from [Range]) trough [method Object._set], [method Object._get]
 ## and [method Object._get_property_list]
 
+
+@export var slider_custom_minimum_size: Vector2 = Vector2(150, 0):
+	set(new):
+		slider_custom_minimum_size = new
+		if slider:
+			slider.custom_minimum_size = slider_custom_minimum_size
+
+
 ## The [Slider] instance used by SliderSpinBox.
-@onready var slider: HSlider = $Slider
+@onready var slider: HSlider = %Slider
 ## The [SpinBox] instance used by SliderSpinBox.
-@onready var spin_box: SpinBox = $SpinBox
+@onready var spin_box: SpinBox = %SpinBox
 
 
 func _ready() -> void:
@@ -27,6 +36,7 @@ func _ready() -> void:
 		_get_property_list()
 	
 	slider.share(spin_box)
+	slider.custom_minimum_size = slider_custom_minimum_size
 
 
 func _set(property: StringName, value: Variant) -> bool:
@@ -48,7 +58,7 @@ static var _bound_properties: Array[StringName] = []
 static var _property_list: Array[Dictionary] = []
 # Bind Range's properties of the slider and spin box.
 func _get_property_list() -> Array[Dictionary]:
-	if _property_list.is_empty():
+	if slider and _property_list.is_empty():
 		var take: bool = false
 		
 		for property in slider.get_property_list():
