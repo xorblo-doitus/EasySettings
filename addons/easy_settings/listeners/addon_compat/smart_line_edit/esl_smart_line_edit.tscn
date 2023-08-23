@@ -6,3 +6,4 @@
 [node name="ESLSmartLineEdit" instance=ExtResource("1_vtmd8")]
 script = ExtResource("2_lokod")
 set_only_on_submit = false
+save_debounce_time_sec = 1.0

@@ -6,3 +6,4 @@
 [node name="ESLLineEdit" instance=ExtResource("1_12u24")]
 script = ExtResource("2_4ryi0")
 set_only_on_submit = false
+save_debounce_time_sec = 1.0

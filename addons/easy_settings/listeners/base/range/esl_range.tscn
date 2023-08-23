@@ -5,3 +5,4 @@
 
 [node name="ESLRange" instance=ExtResource("1_jsk5x")]
 script = ExtResource("2_hifpw")
+save_debounce_time_sec = 1.0

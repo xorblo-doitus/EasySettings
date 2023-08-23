@@ -34,6 +34,12 @@ static var _no_value: RefCounted = RefCounted.new()
 @export var sync: Sync = Sync.WHEN_WAS_SYNCED
 ## If true, when ready or target changed, the value will be synced.
 @export var start_synced: bool = true
+## Prevent saving setting more than this per second. If 0, there is no debounce.
+## [br][b]Will not work when outside tree.[/b]
+@export var save_debounce_time_sec: float = 0.0
+
+var _save_debounce_timer: SceneTreeTimer
+var _setting_changed_while_save_debouncing: bool = false
 
 
 func _ready() -> void:
@@ -57,7 +63,26 @@ func update_value(new_value, old_value: Variant, forced: bool = false) -> void:
 ## [br]If no [param new_value] is passed, it uses [method get_value] to find it.
 func set_value(new_value: Variant = _no_value) -> void:
 	_ignore_update = true
-	EasySettings.set_setting(setting, get_value() if _is_no_value(new_value) else new_value)
+	
+	EasySettings.set_setting(
+		setting,
+		get_value() if _is_no_value(new_value) else new_value,
+		_save_debounce_timer == null
+	)
+	
+	if _save_debounce_timer == null:
+		if save_debounce_time_sec and is_inside_tree():
+			_save_debounce_timer = get_tree().create_timer(
+				save_debounce_time_sec,
+				true, # default
+				false, # default
+				true # ignore time_scale
+			)
+			_setting_changed_while_save_debouncing = false
+			_save_debounce_timer.timeout.connect(_on_debounce_save_timer_timeout)
+	else:
+		_setting_changed_while_save_debouncing = true
+	
 	_ignore_update = false
 
 
@@ -77,3 +102,10 @@ func _update_value(new_value, old_value: Variant) -> void:
 	if _ignore_update or sync == Sync.NEVER:
 		return
 	update_value(new_value, old_value)
+
+
+func _on_debounce_save_timer_timeout() -> void:
+	if _setting_changed_while_save_debouncing:
+		EasySettings.save_settings()
+	_setting_changed_while_save_debouncing = false
+	_save_debounce_timer = null

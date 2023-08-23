@@ -5,3 +5,4 @@
 
 [node name="ESLSliderSpinBox" instance=ExtResource("1_x2e4g")]
 script = ExtResource("2_dcco0")
+save_debounce_time_sec = 1.0

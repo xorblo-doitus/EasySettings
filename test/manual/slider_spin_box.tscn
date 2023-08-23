@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://rsu00x2ntgh8"]
+[gd_scene load_steps=5 format=3 uid="uid://rsu00x2ntgh8"]
 
 [ext_resource type="PackedScene" uid="uid://dxlqu4dnw63c1" path="res://test/manual/manual_test_scene.tscn" id="1_skox7"]
-[ext_resource type="PackedScene" uid="uid://sirvxgnt3chi" path="res://addons/slider_spin_box/slider_spin_box.tscn" id="2_8v6cp"]
+[ext_resource type="PackedScene" uid="uid://sirvxgnt3chi" path="res://addons/slider_spin_box/h_slider_spin_box.tscn" id="2_8v6cp"]
 [ext_resource type="PackedScene" uid="uid://cukv8au8l4xnm" path="res://addons/easy_settings/listeners/addon_compat/slider_spin_box/esl_slider_spin_box.tscn" id="3_8yvum"]
+[ext_resource type="PackedScene" uid="uid://ci8tse6hjy3ye" path="res://addons/slider_spin_box/v_slider_spin_box.tscn" id="4_1k0cv"]
 
 [node name="ManualTestScene" instance=ExtResource("1_skox7")]
 setting = "testing/fake_setting/slider_spin_box"
@@ -26,5 +27,12 @@ setting = "testing/fake_setting/slider_spin_box"
 layout_mode = 2
 
 [node name="ESLSliderSpinBox" parent="VBoxContainer/SliderSpinBox2" index="2" node_paths=PackedStringArray("slider_spin_box") instance=ExtResource("3_8yvum")]
+slider_spin_box = NodePath("..")
+setting = "testing/fake_setting/slider_spin_box"
+
+[node name="VSliderSpinBox" parent="VBoxContainer" index="2" instance=ExtResource("4_1k0cv")]
+layout_mode = 2
+
+[node name="ESLSliderSpinBox" parent="VBoxContainer/VSliderSpinBox" index="2" node_paths=PackedStringArray("slider_spin_box") instance=ExtResource("3_8yvum")]
 slider_spin_box = NodePath("..")
 setting = "testing/fake_setting/slider_spin_box"
