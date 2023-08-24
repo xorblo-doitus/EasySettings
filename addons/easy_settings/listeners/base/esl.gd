@@ -71,15 +71,7 @@ func set_value(new_value: Variant = _no_value) -> void:
 	)
 	
 	if _save_debounce_timer == null:
-		if save_debounce_time_sec and is_inside_tree():
-			_save_debounce_timer = get_tree().create_timer(
-				save_debounce_time_sec,
-				true, # default
-				false, # default
-				true # ignore time_scale
-			)
-			_setting_changed_while_save_debouncing = false
-			_save_debounce_timer.timeout.connect(_on_debounce_save_timer_timeout)
+		_create_save_debounce_timer()
 	else:
 		_setting_changed_while_save_debouncing = true
 	
@@ -104,8 +96,21 @@ func _update_value(new_value, old_value: Variant) -> void:
 	update_value(new_value, old_value)
 
 
+func _create_save_debounce_timer() -> void:
+	if save_debounce_time_sec and is_inside_tree():
+		_save_debounce_timer = get_tree().create_timer(
+			save_debounce_time_sec,
+			true, # default
+			false, # default
+			true # ignore time_scale
+		)
+		_setting_changed_while_save_debouncing = false
+		_save_debounce_timer.timeout.connect(_on_debounce_save_timer_timeout)
+
+
 func _on_debounce_save_timer_timeout() -> void:
 	if _setting_changed_while_save_debouncing:
 		EasySettings.save_settings()
-	_setting_changed_while_save_debouncing = false
-	_save_debounce_timer = null
+		_create_save_debounce_timer()
+	else:
+		_save_debounce_timer = null
