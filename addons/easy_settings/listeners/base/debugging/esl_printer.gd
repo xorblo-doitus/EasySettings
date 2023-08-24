@@ -30,6 +30,9 @@ func get_value() -> Variant:
 ## [b][Virtual][/b] Method called when the setting is modified by an external source,
 ## except if [member sync] is [enum Sync].NEVER.
 func update_value(new_value: Variant, old_value: Variant, forced: bool = false) -> void:
+	if not enabled:
+		return
+	
 	if _is_no_value(old_value):
 		print("Initial setting ", setting, ": ", new_value)
 	else:
