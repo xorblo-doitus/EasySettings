@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj2djjmsoslqc"]
+
+[ext_resource type="PackedScene" uid="uid://dxlqu4dnw63c1" path="res://test/manual/manual_test_scene.tscn" id="1_6dxaq"]
+[ext_resource type="PackedScene" uid="uid://np18311ppboh" path="res://addons/easy_settings/listeners/base/option_button/esl_option_button.tscn" id="2_miiw3"]
+
+[node name="ManualTestScene" instance=ExtResource("1_6dxaq")]
+
+[node name="ESLPrinter" parent="." index="0"]
+save_debounce_time_sec = 0.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer" index="0"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "a"
+popup/item_0/id = 0
+popup/item_1/text = "b"
+popup/item_1/id = 1
+popup/item_2/text = "c"
+popup/item_2/id = 2
+
+[node name="ESLOptionButton" parent="VBoxContainer/OptionButton" index="1" node_paths=PackedStringArray("option_button") instance=ExtResource("2_miiw3")]
+option_button = NodePath("..")
+setting = "testing/fake_setting/option_button"
+
+[node name="OptionButton2" type="OptionButton" parent="VBoxContainer" index="1"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "a"
+popup/item_0/id = 0
+popup/item_1/text = "b"
+popup/item_1/id = 1
+popup/item_2/text = "c"
+popup/item_2/id = 2
+
+[node name="ESLOptionButton" parent="VBoxContainer/OptionButton2" index="1" node_paths=PackedStringArray("option_button") instance=ExtResource("2_miiw3")]
+option_button = NodePath("..")
+setting = "testing/fake_setting/option_button"

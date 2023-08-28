@@ -33,3 +33,4 @@ fake_setting/none=true
 fake_setting/slider_spin_box=1234.0
 fake_setting/range=1234.0
 fake_setting/base_button=false
+fake_setting/option_button=0
