@@ -15,12 +15,18 @@ class_name ESLOptionButton
 		option_button = new_value
 		if start_synced and is_node_ready():
 			force_update()
+## If true, the value saved will be the index of the item instead of the id.
+@export var save_index: bool = true
 
 
 func get_value() -> int:
 	if option_button == null:
 		return false
-	return option_button.selected
+	
+	if save_index:
+		return option_button.selected
+	
+	return option_button.get_selected_id()
 
 
 func update_value(new_value: int, old_value, forced: bool = false) -> void:
@@ -29,11 +35,14 @@ func update_value(new_value: int, old_value, forced: bool = false) -> void:
 			or (_is_no_value(old_value) or option_button.selected == old_value)
 			or forced
 		) and option_button != null:
-		option_button.selected = new_value
+		if save_index:
+			option_button.selected = new_value
+		else:
+			option_button.selected = option_button.get_item_index(new_value)
 
 
 func _connect(to_connect: OptionButton) -> void:
-	to_connect.item_selected.connect(set_value)
+	to_connect.item_selected.connect(set_value.unbind(1))
 
 
 func _disconnect(to_disconnect: OptionButton) -> void:

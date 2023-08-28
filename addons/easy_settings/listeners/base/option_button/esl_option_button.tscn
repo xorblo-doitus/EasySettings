@@ -5,3 +5,4 @@
 
 [node name="ESLOptionButton" instance=ExtResource("1_ogkyp")]
 script = ExtResource("2_sq4rd")
+save_index = true
