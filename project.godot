@@ -20,6 +20,10 @@ config/icon="res://addons/easy_settings/listeners/base/ESL_Icon.svg"
 window/size/viewport_width=400
 window/size/viewport_height=200
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
@@ -34,3 +38,4 @@ fake_setting/slider_spin_box=1234.0
 fake_setting/range=1234.0
 fake_setting/base_button=false
 fake_setting/option_button=0
+fake_setting/unit_test=""
