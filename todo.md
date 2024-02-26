@@ -1,1 +1,1 @@
-- [ ] Add possibility to create temporary setting modifications.
+- [ ] Nothing more.
