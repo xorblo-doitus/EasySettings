@@ -74,6 +74,8 @@ static  func save_settings() -> void:
 ## Begin bulk setting change to prevent saving too much times settings.
 ## Use [method validate_bulk_setting_change] once you are done to save modifications.
 ## Use [method cancel_bulk_setting_change] to cancel modifications.
+## Note that modifying a setting during bulk change will [i]apply[/i] the new setting,
+## but it wont be [i]saved[/i].
 static  func begin_bulk_setting_change() -> void:
 	_bulk_setting_change = true
 	_bulk_to_undo.clear()
