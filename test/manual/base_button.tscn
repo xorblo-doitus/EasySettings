@@ -7,7 +7,6 @@
 setting = "testing/fake_setting/base_button"
 
 [node name="ESLPrinter" parent="." index="0"]
-prefix = "Changed setting "
 setting = "testing/fake_setting/base_button"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
