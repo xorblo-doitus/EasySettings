@@ -41,9 +41,13 @@ static func set_setting(setting: String, value, save: bool = true) -> void:
 			unbind_listener.call_deferred(setting, listener)
 
 
-## Alias for [method ProjectSettings.get_setting]
-static func get_setting(setting: String, default: Variant = null) -> Variant:
-	return ProjectSettings.get_setting(setting, default)
+## Returns [method ProjectSettings.get_setting_with_override] or [param default]
+## if the provided setting does not exist.
+static func get_setting(setting: StringName, default: Variant = null) -> Variant:
+	if ProjectSettings.has_setting(setting):
+		return ProjectSettings.get_setting_with_override(setting)
+	
+	return default
 
 
 ## Bind a listener so he will be updated when setting's value is changed.
