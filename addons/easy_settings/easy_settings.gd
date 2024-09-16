@@ -69,10 +69,10 @@ static func unbind_listener(setting: String, listener: ESL) -> void:
 		all_listeners.erase(setting)
 
 
-## Save settings to [code]override.cfg[/code] so it's loaded on next startup.
+## Save settings to [code]res://override.cfg[/code] so it's loaded on next startup.
 static  func save_settings() -> void:
 	print("Saving settings")
-	ProjectSettings.save_custom("override.cfg")
+	ProjectSettings.save_custom("res://override.cfg")
 
 
 ## Begin bulk setting change to prevent saving too much times settings.
