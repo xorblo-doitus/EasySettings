@@ -1,0 +1,1 @@
+addons/easy_settings/README.md
