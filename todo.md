@@ -1,1 +1,4 @@
-- [ ] Nothing more.
+- [ ] Check option button esl
+- [ ] Add nested bulk setting change?
+- [ ] Make so that changing a setting override thriggers listeners whose setting has no override provided.
+- [ ] Check everything is fine with overrides.

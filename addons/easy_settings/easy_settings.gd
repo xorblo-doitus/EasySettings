@@ -2,6 +2,53 @@ extends Object
 class_name EasySettings
 
 
+const _BUILTIN_FEATURE_TAGS: PackedStringArray = [
+	"android",
+	"bsd",
+	"linux",
+	"macos",
+	"ios",
+	"windows",
+	"linuxbsd",
+	"debug",
+	"release",
+	"editor",
+	"template",
+	"double",
+	"single",
+	"64",
+	"32",
+	"x86_64",
+	"x86_32",
+	"x86",
+	"arm64",
+	"arm32",
+	"arm",
+	"rv64",
+	"riscv",
+	"ppc64",
+	"ppc32",
+	"ppc",
+	"wasm64",
+	"wasm32",
+	"wasm",
+	"mobile",
+	"pc",
+	"web",
+	"web_android",
+	"web_ios",
+	"web_linuxbsd",
+	"web_macos",
+	"web_windows",
+	"etc",
+	"etc2",
+	"s3tc",
+	"movie",
+]
+
+static var _current_features: PackedStringArray = []
+
+
 static var all_listeners: Dictionary:
 	get:
 		# `all_listeners == null` somehow don't work...
@@ -19,9 +66,25 @@ static var _bulk_setting_change: bool = false
 static var _bulk_to_undo: Dictionary = {}
 
 
-## Does [method ProjectSettings.set_setting] then update listeners bound to this setting.
+
+static func _static_init() -> void:
+	detect_features()
+
+
+## Calls [method ProjectSettings.set_setting] then update listeners bound to this setting.
 ## If [param save] is [code]true[/code] AND nothing disable auto saving, then it will save changement.
-static func set_setting(setting: String, value, save: bool = true) -> void:
+## [br][br] 
+## In case an override is not provided and some are active for that setting, they will be removed.
+static func set_setting(setting: String, value: Variant, save: bool = true, override: String = "") -> void:
+	if override:
+		setting += "." + override
+	else:
+		var template: String = setting + "."
+		for feature in _current_features:
+			var path: String = template + feature
+			if ProjectSettings.has_setting(path):
+				ProjectSettings.set_setting(path, null)
+	
 	var old_value = ProjectSettings.get_setting(setting)
 	
 	if _bulk_setting_change and not setting in _bulk_to_undo:
@@ -106,6 +169,55 @@ static func cancel_bulk_setting_change() -> void:
 		set_setting(setting, _bulk_to_undo[setting])
 	_bulk_setting_change = false
 	_bulk_to_undo.clear()
+
+
+## Check which feature tags are currently active. (See [method OS.has_feature])
+## Checked features are the builtin ones, the ones in
+## [code]ProjectSettings.get_setting("addons/easy_settings/custom_features"[/code]
+## and the ones given in [param custom_features].
+## [b]Note:[/b] This is called automatically inside static init.
+static func detect_features(custom_features: PackedStringArray = PackedStringArray()) -> void:
+	_current_features.clear()
+	_check_features(_BUILTIN_FEATURE_TAGS)
+	_check_features(custom_features)
+	_check_features(ProjectSettings.get_setting("addons/easy_settings/custom_features", PackedStringArray()))
+	#_order_features()
+
+
+static func _check_features(features: PackedStringArray) -> void:
+	for feature in features:
+		if OS.has_feature(feature):
+			_current_features.append(feature)
+
+
+## Hum, seems Godot just apply them in the order they get added...
+#static func _order_features() -> void:
+	#const _TEMP_ORDER_CHECKER_SETTING = "temporary/easy_settings/feature_override_order"
+	#
+	#ProjectSettings.set_setting(_TEMP_ORDER_CHECKER_SETTING, -1)
+	##for i in len(_current_features):
+	#var tmp: Array = _current_features
+	#tmp.shuffle()
+	#_current_features = tmp
+	#for i in len(_current_features):
+	##for i in range(len(_current_features)-1, -1, -1):
+		#print(i, ": ", _current_features[i])
+		#ProjectSettings.set_setting(
+			#_TEMP_ORDER_CHECKER_SETTING + "." + _current_features[i],
+			#i
+		#)
+	#print("=======")
+	#var reordered: PackedStringArray = PackedStringArray()
+	#var current_i: int = ProjectSettings.get_setting_with_override(_TEMP_ORDER_CHECKER_SETTING)
+	#while current_i != -1:
+		#var feature: String = _current_features[current_i]
+		#print(current_i, ": ", feature)
+		#reordered.append(feature)
+		#ProjectSettings.set_setting(_TEMP_ORDER_CHECKER_SETTING + "." + feature, null)
+		#current_i = ProjectSettings.get_setting_with_override(_TEMP_ORDER_CHECKER_SETTING)
+	#
+	#_current_features = reordered
+	#print("ordered: ", reordered)
 
 
 static func _shall_save() -> bool:

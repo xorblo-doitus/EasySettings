@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+easy_settings/custom_features=PackedStringArray("custom_feature1", "custom_feature2")
+
 [application]
 
 config/name="EasySettings"
@@ -39,3 +43,4 @@ fake_setting/range=1234.0
 fake_setting/base_button=false
 fake_setting/option_button=0
 fake_setting/unit_test=""
+fake_setting/range.windows=9876.0
