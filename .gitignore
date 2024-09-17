@@ -1,19 +1,51 @@
-# Godot 4+ specific ignores
-.godot/
+########## Project specific ignores
 
-# Godot-specific ignores
-.import/
-export.cfg
-export_presets.cfg
-
-# GhostWriter
-*.md.backup
-
-# GUT
-.gut_editor_shortcuts.cfg
+# LiveServer symlink
+# TODOTEMPLATE When using this template, replace "Template" with the name of
+# TODOTEMPLATE the repo and create the corresponding symlink
+docs/Template
 
 # Drafts
 scenes/
 
-# Other
+
+########## Other
+
+# Temporary files
+*.tmp.*
+*.tmp
+tmp.*
+*.temp.*
+*.temp
+temp.*
+
+# Backups
+*.backup.*
+*.backup
+*.bkp.*
+*.bkp
+
+# Exports
+quick_export*
+
+
+########## Program specific ignores
+
+# Godot
+*.translation
 override.cfg
+
+# GUT
+.gut_editor_shortcuts.cfg
+
+# LireOffice
+*.~lock.*
+
+# GhostWriter
+*.md.backup
+
+
+########## Godot's default .gitignore
+
+# Godot 4+ specific ignores
+.godot/
