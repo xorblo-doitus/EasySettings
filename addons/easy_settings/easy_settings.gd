@@ -77,7 +77,9 @@ static func _static_init() -> void:
 ## [br][br] 
 ## In case an override is not provided and some are active for that setting, they will be removed.
 static func set_setting(setting: String, value: Variant, save: bool = true, override: String = "") -> void:
-	var old_value = ProjectSettings.get_setting_with_override(setting)
+	var old_value: Variant = null
+	if ProjectSettings.has_setting(setting):
+		old_value = ProjectSettings.get_setting_with_override(setting)
 	
 	if override:
 		setting += "." + override
