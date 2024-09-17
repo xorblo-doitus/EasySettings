@@ -85,7 +85,6 @@ static func set_setting(setting: String, value: Variant, save: bool = true, over
 		var template: String = setting + "."
 		for feature in _current_features:
 			var path: String = template + feature
-			prints(ProjectSettings.has_setting(path), ProjectSettings.get_setting(path))
 			if ProjectSettings.has_setting(path):
 				if _bulk_setting_change and not path in _bulk_to_undo_overrides:
 					_bulk_to_undo_overrides[path] = BulkUndoStateForOverride.new(setting, feature, ProjectSettings.get_setting(path))
