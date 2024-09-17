@@ -1,29 +1,92 @@
 extends GutTest
 
 
-const setting = "testing/fake_setting/unit_test"
+const SETTING = "testing/fake_setting/unit_test"
+const OVERRIDE = "debug"
+const SETTING_AND_OVERRIDE = SETTING + "." + OVERRIDE
+const SETTING_WITH_OVERRIDE = "testing/fake_setting/unit_test_with_override"
 
 
 func before_each() -> void:
-	EasySettings.set_setting(setting, "")
+	EasySettings.set_setting(SETTING, "")
 
 
 func test_bulk() -> void:
-	EasySettings.set_setting(setting, "start")
+	EasySettings.set_setting(SETTING, "start")
 	EasySettings.begin_bulk_setting_change()
-	EasySettings.set_setting(setting, "new")
+	EasySettings.set_setting(SETTING, "new")
 	EasySettings.validate_bulk_setting_change()
 	assert_eq(
-		EasySettings.get_setting(setting),
+		EasySettings.get_setting(SETTING),
 		"new",
 		"EasySettings.validate_bulk_setting_change() erase modifications."
 	)
 	
 	EasySettings.begin_bulk_setting_change()
-	EasySettings.set_setting(setting, "even_newer")
+	EasySettings.set_setting(SETTING, "even_newer")
 	EasySettings.cancel_bulk_setting_change()
 	assert_eq(
-		EasySettings.get_setting(setting),
+		EasySettings.get_setting(SETTING),
+		"new",
+		"EasySettings.cancel_bulk_setting_change() does not cancel modifications."
+	)
+	
+	
+	EasySettings.set_setting(SETTING_AND_OVERRIDE, "start")
+	EasySettings.begin_bulk_setting_change()
+	EasySettings.set_setting(SETTING_AND_OVERRIDE, "new")
+	EasySettings.validate_bulk_setting_change()
+	assert_eq(
+		EasySettings.get_setting(SETTING_AND_OVERRIDE),
+		"new",
+		"EasySettings.validate_bulk_setting_change() erase modifications."
+	)
+	
+	EasySettings.begin_bulk_setting_change()
+	EasySettings.set_setting(SETTING_AND_OVERRIDE, "even_newer")
+	EasySettings.cancel_bulk_setting_change()
+	assert_eq(
+		EasySettings.get_setting(SETTING_AND_OVERRIDE),
+		"new",
+		"EasySettings.cancel_bulk_setting_change() does not cancel modifications."
+	)
+	
+	
+	EasySettings.set_setting(SETTING, "start", true, OVERRIDE)
+	EasySettings.begin_bulk_setting_change()
+	EasySettings.set_setting(SETTING, "new", true, OVERRIDE)
+	EasySettings.validate_bulk_setting_change()
+	assert_eq(
+		EasySettings.get_setting(SETTING_AND_OVERRIDE),
+		"new",
+		"EasySettings.validate_bulk_setting_change() erase modifications."
+	)
+	
+	EasySettings.begin_bulk_setting_change()
+	EasySettings.set_setting(SETTING, "even_newer", true, OVERRIDE)
+	EasySettings.cancel_bulk_setting_change()
+	assert_eq(
+		EasySettings.get_setting(SETTING_AND_OVERRIDE),
+		"new",
+		"EasySettings.cancel_bulk_setting_change() does not cancel modifications."
+	)
+	
+	
+	EasySettings.set_setting(SETTING_WITH_OVERRIDE, "start")
+	EasySettings.begin_bulk_setting_change()
+	EasySettings.set_setting(SETTING_WITH_OVERRIDE, "new")
+	EasySettings.validate_bulk_setting_change()
+	assert_eq(
+		EasySettings.get_setting(SETTING_WITH_OVERRIDE),
+		"new",
+		"EasySettings.validate_bulk_setting_change() erase modifications."
+	)
+	
+	EasySettings.begin_bulk_setting_change()
+	EasySettings.set_setting(SETTING_WITH_OVERRIDE, "even_newer")
+	EasySettings.cancel_bulk_setting_change()
+	assert_eq(
+		EasySettings.get_setting(SETTING_AND_OVERRIDE),
 		"new",
 		"EasySettings.cancel_bulk_setting_change() does not cancel modifications."
 	)
