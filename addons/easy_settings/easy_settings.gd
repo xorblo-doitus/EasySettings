@@ -64,6 +64,7 @@ static var _bulk_setting_change: bool = false
 ## Key: Setting, Value: Setting's value when starting bulk modification.
 ## This doesn't store initial values for unmodified settings.
 static var _bulk_to_undo: Dictionary = {}
+static var _bulk_to_undo_overrides: Dictionary = {}
 
 
 
@@ -84,7 +85,10 @@ static func set_setting(setting: String, value: Variant, save: bool = true, over
 		var template: String = setting + "."
 		for feature in _current_features:
 			var path: String = template + feature
+			prints(ProjectSettings.has_setting(path), ProjectSettings.get_setting(path))
 			if ProjectSettings.has_setting(path):
+				if _bulk_setting_change and not path in _bulk_to_undo_overrides:
+					_bulk_to_undo_overrides[path] = BulkUndoStateForOverride.new(setting, feature, ProjectSettings.get_setting(path))
 				ProjectSettings.set_setting(path, null)
 	
 	if _bulk_setting_change and not setting in _bulk_to_undo:
@@ -147,6 +151,7 @@ static  func save_settings() -> void:
 static  func begin_bulk_setting_change() -> void:
 	_bulk_setting_change = true
 	_bulk_to_undo.clear()
+	_bulk_to_undo_overrides.clear()
 
 
 ## Stop bulk setting change and saves the settings.
@@ -154,6 +159,7 @@ static  func begin_bulk_setting_change() -> void:
 static func validate_bulk_setting_change(save: bool = true) -> void:
 	_bulk_setting_change = false
 	_bulk_to_undo.clear()
+	_bulk_to_undo_overrides.clear()
 	if save:
 		save_settings()
 
@@ -166,10 +172,16 @@ static func end_bulk_setting_change() -> void:
 ## Restore settings as there were when starting bulk setting change.
 ## See [method begin_bulk_setting_change].
 static func cancel_bulk_setting_change() -> void:
+	for path in _bulk_to_undo_overrides:
+		var state: BulkUndoStateForOverride = _bulk_to_undo_overrides[path]
+		ProjectSettings.set_setting(state.get_full_path(), state.initial_value)
+	_bulk_to_undo_overrides.clear()
+	
 	for setting in _bulk_to_undo:
 		set_setting(setting, _bulk_to_undo[setting])
-	_bulk_setting_change = false
 	_bulk_to_undo.clear()
+	
+	_bulk_setting_change = false
 
 
 ## Check which feature tags are currently active. (See [method OS.has_feature])
@@ -227,3 +239,17 @@ static func _shall_save() -> bool:
 
 static func _get_empty_ESL_array() -> Array[ESL]:
 	return []
+
+
+class BulkUndoStateForOverride:
+	var setting: String
+	var override: String
+	var initial_value: Variant
+	
+	func _init(_setting: String, _override: String, _initial_value: Variant) -> void:
+		setting = _setting
+		override = _override
+		initial_value = _initial_value
+	
+	func get_full_path() -> String:
+		return setting + "." + override
