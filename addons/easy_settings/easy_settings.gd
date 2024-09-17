@@ -76,6 +76,8 @@ static func _static_init() -> void:
 ## [br][br] 
 ## In case an override is not provided and some are active for that setting, they will be removed.
 static func set_setting(setting: String, value: Variant, save: bool = true, override: String = "") -> void:
+	var old_value = ProjectSettings.get_setting_with_override(setting)
+	
 	if override:
 		setting += "." + override
 	else:
@@ -84,8 +86,6 @@ static func set_setting(setting: String, value: Variant, save: bool = true, over
 			var path: String = template + feature
 			if ProjectSettings.has_setting(path):
 				ProjectSettings.set_setting(path, null)
-	
-	var old_value = ProjectSettings.get_setting(setting)
 	
 	if _bulk_setting_change and not setting in _bulk_to_undo:
 		_bulk_to_undo[setting] = old_value
@@ -96,6 +96,7 @@ static func set_setting(setting: String, value: Variant, save: bool = true, over
 		save_settings()
 	
 	var listeners: Array[ESL] = all_listeners.get(setting, _get_empty_ESL_array())
+	
 	for listener in listeners:
 		if is_instance_valid(listener):
 			listener._update_value(value, old_value)
