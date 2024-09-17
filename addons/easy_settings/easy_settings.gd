@@ -80,6 +80,8 @@ static func set_setting(setting: String, value: Variant, save: bool = true, over
 	var old_value: Variant = null
 	if ProjectSettings.has_setting(setting):
 		old_value = ProjectSettings.get_setting_with_override(setting)
+	elif "." in setting:
+		old_value = ProjectSettings.get_setting(setting.split(".")[0])
 	
 	if override:
 		setting += "." + override

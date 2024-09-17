@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ssstbrhggy7i"]
+[gd_scene load_steps=4 format=3 uid="uid://ssstbrhggy7i"]
 
 [ext_resource type="PackedScene" uid="uid://dxlqu4dnw63c1" path="res://test/manual/manual_test_scene.tscn" id="1_xv0dn"]
+[ext_resource type="PackedScene" uid="uid://n5f5galx60ji" path="res://addons/easy_settings/listeners/base/debugging/esl_printer.tscn" id="2_ihqs8"]
 [ext_resource type="PackedScene" uid="uid://5b0n80sh8yyu" path="res://addons/easy_settings/listeners/base/range/esl_range.tscn" id="2_wte7j"]
 
 [node name="ManualTestScene" instance=ExtResource("1_xv0dn")]
@@ -8,9 +9,15 @@ setting = "testing/fake_setting/range"
 
 [node name="ESLPrinter" parent="." index="0"]
 enabled = false
+prefix = "(Any) Changed setting "
 setting = "testing/fake_setting/range"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+[node name="ESLPrinter2" parent="." index="1" instance=ExtResource("2_ihqs8")]
+enabled = false
+prefix = "(Debug override) Changed setting "
+setting = "testing/fake_setting/range"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="2"]
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -27,3 +34,17 @@ layout_mode = 2
 [node name="ESLRange" parent="VBoxContainer/HSlider2" index="0" node_paths=PackedStringArray("range") instance=ExtResource("2_wte7j")]
 range = NodePath("..")
 setting = "testing/fake_setting/range"
+
+[node name="Override" type="HSlider" parent="VBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="ESLRange" parent="VBoxContainer/Override" index="0" node_paths=PackedStringArray("range") instance=ExtResource("2_wte7j")]
+range = NodePath("..")
+setting = "testing/fake_setting/range.debug"
+
+[node name="Override2" type="HSlider" parent="VBoxContainer" index="3"]
+layout_mode = 2
+
+[node name="ESLRange" parent="VBoxContainer/Override2" index="0" node_paths=PackedStringArray("range") instance=ExtResource("2_wte7j")]
+range = NodePath("..")
+setting = "testing/fake_setting/range.debug"
