@@ -100,11 +100,19 @@ static func set_setting(setting: String, value: Variant, save: bool = true, over
 	if save and _shall_save():
 		save_settings()
 	
+	_update_listeners(setting, value, old_value)
+	
+	var split: PackedStringArray = setting.split(".", true, 1)
+	if split.size() == 2:
+		_update_listeners(split[0], value, old_value)
+
+
+static func _update_listeners(setting: String, new_value: Variant, old_value: Variant) -> void:
 	var listeners: Array[ESL] = all_listeners.get(setting, _get_empty_ESL_array())
 	
 	for listener in listeners:
 		if is_instance_valid(listener):
-			listener._update_value(value, old_value)
+			listener._update_value(new_value, old_value)
 		else:
 			# Defered because would modify the Array during iteration otherwise.
 			unbind_listener.call_deferred(setting, listener)
