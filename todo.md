@@ -1,3 +1,0 @@
-- [ ] Add nested bulk setting change?
-- [x] Make so that changing a setting override thriggers listeners whose setting has no override provided.
-- [ ] Check everything is fine with overrides.
