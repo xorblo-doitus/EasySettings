@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="64"
+   height="64"
+   version="1.1"
+   viewBox="0 0 64 64"
+   id="svg1"
+   sodipodi:docname="gear.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="4.3199805"
+     inkscape:cx="10.532455"
+     inkscape:cy="11.805609"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M 27.428768,-6.0735813e-8 24.848428,10.321359 A 22.857116,22.857116 0 0 0 21.69666,11.598158 L 12.607299,6.1426213 6.1428497,12.607071 11.607072,21.722946 a 22.857116,22.857116 0 0 0 -1.303541,3.133939 L -1.3268e-7,27.428311 v 9.142846 L 10.321359,39.151497 a 22.857116,22.857116 0 0 0 1.276798,3.142853 l -5.4555358,9.098047 6.4644498,6.46445 9.115875,-5.464222 a 22.857116,22.857116 0 0 0 3.133939,1.303541 l 2.571426,10.30353 h 9.142846 l 2.58034,-10.321359 a 22.857116,22.857116 0 0 0 3.142853,-1.276798 l 9.098047,5.455536 6.46445,-6.464449 -5.464223,-9.115875 a 22.857116,22.857116 0 0 0 1.303542,-3.13394 l 10.30353,-2.571425 V 27.428539 L 53.678337,24.848199 A 22.857116,22.857116 0 0 0 52.401539,21.705346 L 57.857075,12.607299 51.392625,6.1428499 42.27675,11.607072 A 22.857116,22.857116 0 0 0 39.142811,10.303531 L 36.571385,-6.0735797e-8 H 27.428539 Z M 32.000191,22.857116 a 9.1428465,9.1428465 0 0 1 9.142847,9.142847 9.1428465,9.1428465 0 0 1 -9.142847,9.142846 9.1428465,9.1428465 0 0 1 -9.142847,-9.142846 9.1428465,9.1428465 0 0 1 9.142847,-9.142847 z"
+     fill="#e0ad00"
+     id="path1"
+     style="fill:#ffffff;stroke-width:1" />
+</svg>
